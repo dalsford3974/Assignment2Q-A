@@ -45,7 +45,7 @@ def calculateBMI(weight, height):
 
 
 def classifyBMI(bmi):
-    if bmi < 18.5:
+    if bmi < 18.6:
         return "Underweight"
     elif bmi < 25:
         return "Normal weight"
@@ -125,10 +125,10 @@ def testFunctions():
         # fails ON the boundary
         (10, validInches(12) == False, "Inches must be a value between 0 and 11", "12"),
 
-        # fails OFF the boundary
+        # fails OFF the boundary (outside range, farther from boundary)
         (11, validInches(13) == False, "Inches must be a value between 0 and 11", "13"),
 
-        # passes Underweight
+        # passes Underweight OFF the boundary (just below 18.5)
         (12, classifyBMI(18.4) == "Underweight",
          "BMI classification is Underweight", "18.4"),
 
@@ -136,23 +136,31 @@ def testFunctions():
         (13, classifyBMI(18.5) == "Normal weight",
          "BMI classification is Normal weight", "18.5"),
 
-        # passes Normal weight OFF the boundary
-        (14, classifyBMI(24.9) == "Normal weight",
+        # passes Normal weight Interior value (just above 18.5)
+        (14, classifyBMI(18.6) == "Normal weight",
+         "BMI classification is Normal weight", "18.6"),
+
+        # passes Normal weight OFF the boundary (just below 25)
+        (15, classifyBMI(24.9) == "Normal weight",
          "BMI classification is Normal weight", "24.9"),
 
         # passes Overweight ON the boundary
-        (15, classifyBMI(25) == "Overweight",
+        (16, classifyBMI(25) == "Overweight",
          "BMI classification is Overweight", "25"),
 
-        # passes Overweight OFF the boundary
-        (16, classifyBMI(29.9) == "Overweight",
+        # passes Overweight Interior value (just above 25)
+        (17, classifyBMI(25.1) == "Overweight",
+         "BMI classification is Overweight", "25.1"),
+
+        # passes Overweight OFF the boundary (just below 30)
+        (18, classifyBMI(29.9) == "Overweight",
          "BMI classification is Overweight", "29.9"),
 
         # passes Obese ON the boundary
-        (17, classifyBMI(30) == "Obese", "BMI classification is Obese", "30"),
+        (19, classifyBMI(30) == "Obese", "BMI classification is Obese", "30"),
 
-        # passes Obese OFF the boundary
-        (18, classifyBMI(30.1) == "Obese", "BMI classification is Obese", "30.1"),
+        # passes Obese OFF the boundary (just above 30)
+        (20, classifyBMI(30.1) == "Obese", "BMI classification is Obese", "30.1"),
     ]
 # If passed print the test id and "passed"
     print("\nRunning tests...")
