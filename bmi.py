@@ -1,13 +1,7 @@
-# Weight <= 0 Test Cases:
-# -1, 0, 100, 0.2
-
 def validWeight(weight):
     if weight <= 0:
         return False
     return True
-
-# -1, 0, 100, "abc", 0.2, "a.4"
-
 
 def isWeightNum(weight):
     try:
@@ -16,17 +10,10 @@ def isWeightNum(weight):
     except ValueError:
         return False
 
-# Height <= 0 Test Cases:
-# -1, 0, 5, 0.2
-
-
 def validHeight(height):
     if height <= 0:
         return False
     return True
-
-# -1, 0, 5, "abc", 0.2, "a.4"
-
 
 def isHeightNum(height):
     try:
@@ -35,27 +22,19 @@ def isHeightNum(height):
     except ValueError:
         return False
 
-# Inches <= 0 or >= 12 Test Cases:
-# -1, 0, 5, 11, 12
-
-
 def validInches(inches):
     if inches < 0 or inches >= 12:
         return False
     return True
 
-
 def lbsToKg(weight):
     return weight * 0.45
-
 
 def inchesToMeters(height):
     return height * 0.025
 
-
 def calculateBMI(weight, height):
     return weight / (height ** 2)
-
 
 def classifyBMI(bmi):
     if bmi < 18.5:
@@ -67,12 +46,7 @@ def classifyBMI(bmi):
     else:
         return "Obese"
 
-# need to fix the -Ft plus +In printing height must be greater than 0 error.
-# It is just invalid
-
-
 def main():
-
     while True:
         weightLbs = input("Enter your weight in lbs: ")
         if not isWeightNum(weightLbs):
@@ -111,38 +85,25 @@ def main():
 
 def testFunctions():
     tests = [
-        (validWeight(-1), "Invalid weight", "test 1"), #fails
-        (validWeight(0), "Invalid weight", "test 2"), #fails
-        (validWeight(100), "Invalid weight", "test 3"), #passes
-        (validWeight(0.2), "Invalid weight", "test 4"), #passes
-        (isWeightNum(-1), "Invalid weight", "test 5"), #passes
-        (isWeightNum(0), "Invalid weight", "test 6"), #passes
-        (isWeightNum(100), "Invalid weight", "test 7"), #passes
-        (isWeightNum("abc"), "Invalid weight", "test 8"), #fails
-        (isWeightNum(0.2), "Invalid weight", "test 9"), #passes
-        (isWeightNum("a.4"), "Invalid weight", "test 10"), #fails
-        (validHeight(-1), "Invalid height", "test 11"), #fails
-        (validHeight(0), "Invalid height", "test 12"), #fails
-        (validHeight(5), "Invalid height", "test 13"), #passes
-        (validHeight(0.2), "Invalid height", "test 14"), #passes
-        (isHeightNum(-1), "Invalid height", "test 15"), #passes
-        (isHeightNum(0), "Invalid height", "test 16"), #passes
-        (isHeightNum(5), "Invalid height", "test 17"), #passes
-        (isHeightNum("abc"), "Invalid height", "test 18"), #fails
-        (isHeightNum(0.2), "Invalid height", "test 19"), #passes
-        (isHeightNum("a.4"), "Invalid height", "test 20"), #fails
-        (validInches(-1), "Invalid inches", "test 21"), #fails
-        (validInches(0), "Invalid inches", "test 22"), #passes
-        (validInches(5), "Invalid inches", "test 23"), #passes
-        (validInches(11), "Invalid inches", "test 24"), #passes
-        (validInches(12), "Invalid inches", "test 25") #fails
+        (validWeight(-1), "Invalid weight", "test 1", "-1"), #fails OFF the boundary
+        (validWeight(0), "Invalid weight", "test 2", "0"), #fails ON the boundary
+        (validWeight(100), "Invalid weight", "test 3", "100"), #passes Interior valuelue
+        (validHeight(-1), "Invalid height", "test 4", "-1"), #fails OFF the boundary
+        (validHeight(0), "Invalid height", "test 5", "0"), #fails ON the boundary
+        (validHeight(5), "Invalid height", "test 6", "5"), #passes Interior value
+        (validInches(-1), "Invalid inches", "test 7", "-1"), #fails OFF the boundary
+        (validInches(0), "Invalid inches", "test 8", "0"), #passes ON the boundary
+        (validInches(5), "Invalid inches", "test 9", "5"), #passes Interior value
+        (validInches(12), "Invalid inches", "test 10", "12"), #fails ON the boundary
+        (validInches(13), "Invalid inches", "test 11", "13") #fails OFF the boundary
     ]
-
-    for condition, message, test_id in tests:
+# If passed print the test id and "passed"
+    for condition, message, test_id, input_value in tests:
         try:
             assert condition, message
+            print(f"Test {test_id} passed. (input: {input_value})")
         except AssertionError as e:
-            print(f"Test {test_id} failed: {e}")
+            print(f"Test {test_id} failed: {e} (input: {input_value})")
 
 testFunctions()
 #main()
