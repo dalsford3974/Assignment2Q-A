@@ -35,7 +35,7 @@ def isHeightNum(height):
     except ValueError:
         return False
 
-# Inches < 0 or >= 12 Test Cases:
+# Inches <= 0 or >= 12 Test Cases:
 # -1, 0, 5, 11, 12
 
 
@@ -109,36 +109,40 @@ def main():
 
 # loop through all assert statements and print the error message if an assertion fails
 
-assertions = [
-    (validWeight(-1), "Out of bounds"),
-    (validWeight(0), "Out of bounds"),
-    (validWeight(100), "Invalid weight"),
-    (validWeight(0.2), "Invalid weight"),
-    (isWeightNum(-1), "Invalid weight"),
-    (isWeightNum(0), "Invalid weight"),
-    (isWeightNum(100), "Invalid weight"),
-    (isWeightNum("abc"), "Invalid weight"),
-    (isWeightNum(0.2), "Invalid weight"),
-    (isWeightNum("a.4"), "Invalid weight"),
-    (validHeight(-1), "Out of bounds"),
-    (validHeight(0), "Out of bounds"),
-    (validHeight(5), "Invalid height"),
-    (validHeight(0.2), "Invalid height"),
-    (isHeightNum(-1), "Invalid height"),
-    (isHeightNum(0), "Invalid height"),
-    (isHeightNum(5), "Invalid height"),
-    (isHeightNum("abc"), "Invalid height"),
-    (isHeightNum(0.2), "Invalid height"),
-    (isHeightNum("a.4"), "Invalid height"),
-    (validInches(-1), "Out of bounds"),
-    (validInches(0), "Out of bounds"),
-    (validInches(5), "Invalid inches"),
-    (validInches(11), "Invalid inches"),
-    (validInches(12), "Out of bounds")
-]
+def testFunctions():
+    tests = [
+        (validWeight(-1), "Invalid weight", "test 1"), #fails
+        (validWeight(0), "Invalid weight", "test 2"), #fails
+        (validWeight(100), "Invalid weight", "test 3"), #passes
+        (validWeight(0.2), "Invalid weight", "test 4"), #passes
+        (isWeightNum(-1), "Invalid weight", "test 5"), #passes
+        (isWeightNum(0), "Invalid weight", "test 6"), #passes
+        (isWeightNum(100), "Invalid weight", "test 7"), #passes
+        (isWeightNum("abc"), "Invalid weight", "test 8"), #fails
+        (isWeightNum(0.2), "Invalid weight", "test 9"), #passes
+        (isWeightNum("a.4"), "Invalid weight", "test 10"), #fails
+        (validHeight(-1), "Invalid height", "test 11"), #fails
+        (validHeight(0), "Invalid height", "test 12"), #fails
+        (validHeight(5), "Invalid height", "test 13"), #passes
+        (validHeight(0.2), "Invalid height", "test 14"), #passes
+        (isHeightNum(-1), "Invalid height", "test 15"), #passes
+        (isHeightNum(0), "Invalid height", "test 16"), #passes
+        (isHeightNum(5), "Invalid height", "test 17"), #passes
+        (isHeightNum("abc"), "Invalid height", "test 18"), #fails
+        (isHeightNum(0.2), "Invalid height", "test 19"), #passes
+        (isHeightNum("a.4"), "Invalid height", "test 20"), #fails
+        (validInches(-1), "Invalid inches", "test 21"), #fails
+        (validInches(0), "Invalid inches", "test 22"), #passes
+        (validInches(5), "Invalid inches", "test 23"), #passes
+        (validInches(11), "Invalid inches", "test 24"), #passes
+        (validInches(12), "Invalid inches", "test 25") #fails
+    ]
 
-for condition, message in assertions:
-    try:
-        assert condition, message
-    except AssertionError as e:
-        print(e)
+    for condition, message, test_id in tests:
+        try:
+            assert condition, message
+        except AssertionError as e:
+            print(f"Test {test_id} failed: {e}")
+
+testFunctions()
+#main()
